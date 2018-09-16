@@ -5,11 +5,11 @@ class Contact
   @@test = []
 
   # This method should initialize the contact's attributes
-  def initialize(first_name, last_name, email, notes)
+  def initialize(first_name, last_name, email, note)
     @first_name = first_name
     @last_name = last_name
     @email = email
-    @notes = notes
+    @note = note
     @id = nil
   end
 
@@ -27,8 +27,8 @@ class Contact
     return @email
   end
 
-  def notes
-    return @notes
+  def note
+    return @note
   end
 
   def id
@@ -48,8 +48,8 @@ class Contact
     @email = email
   end
 
-  def notes=(notes)
-    @notes = notes
+  def note=(note)
+    @note = note
   end
 
   def id=(id)
@@ -58,9 +58,9 @@ class Contact
 
   # This method should call the initializer,
   # store the newly created contact, and then return it
-  def self.create(first_name, last_name, email, notes)
-    new_contact = self.new(first_name, last_name, email, notes)
-    new_contact.id =@@next_id #cannot use a @id counter bc it zeroes at every initialization
+  def self.create(first_name, last_name, email, note)
+    new_contact = self.new(first_name, last_name, email, note)
+    new_contact.id = @@next_id #cannot use a @id counter bc it zeroes at every initialization
     @@next_id += 1
     @@contact_list << new_contact
     return new_contact
@@ -76,7 +76,7 @@ class Contact
   def self.find(id_to_find)
       @@contact_list.each do |item|
           if item.id == id_to_find
-            return item.full_name
+            return item
           end
       end
   end
@@ -89,9 +89,6 @@ class Contact
     self.send("#{attribute}=",new_value)
   end
 
-  #a.send(:c=, b.send(:c))
-  #c = 'my_key' a.send("#{c}=", b.send(c))
-
   # This method should work similarly to the find method above
   # but it should allow you to search for a contact using attributes other than id
   # by specifying both the name of the attribute and the value
@@ -99,7 +96,7 @@ class Contact
 
   def self.find_by(attribute, attribute_value)
     # send is an analogue of indirect function in excel
-    print  @@contact_list.select { |contact| contact.send(attribute) == attribute_value }.inspect
+    puts  @@contact_list.select { |contact| contact.send(attribute) == attribute_value }.inspect
   end
 
 
@@ -123,17 +120,17 @@ class Contact
 
 end
 
-jim = Contact.create("Jim", "Hacker", "jim.hacker@daa.co.uk", "Minister")
-humphrey = Contact.create("Humphrey", "Appleby", "humphrey.appleby@civilservice.co.uk", "Permanent Secretary")
-bernard = Contact.create("Bernard", "Woolley", "bernard.woolley@civilservice.co.uk", "Private Secretary")
-puts "The class now contains:"
-puts Contact.all.inspect
-puts humphrey.delete #returns memory pointer of the deleted item
-puts jim.full_name
-# Contact.delete_all
+# jim = Contact.create("Jim", "Hacker", "jim.hacker@daa.co.uk", "Minister")
+# humphrey = Contact.create("Humphrey", "Appleby", "humphrey.appleby@civilservice.co.uk", "Permanent Secretary")
+# bernard = Contact.create("Bernard", "Woolley", "bernard.woolley@civilservice.co.uk", "Private Secretary")
 # puts "The class now contains:"
 # puts Contact.all.inspect
-puts Contact.find(3)
-puts Contact.find_by("last_name", "Woolley")
-puts jim.update("first_name", "James")
-puts Contact.all.inspect
+# puts humphrey.delete #returns memory pointer of the deleted item
+# puts jim.full_name
+# # Contact.delete_all
+# # puts "The class now contains:"
+# # puts Contact.all.inspect
+# puts Contact.find(3)
+# puts Contact.find_by("last_name", "Woolley")
+# puts jim.update("first_name", "James")
+# puts Contact.all.inspect
