@@ -60,7 +60,7 @@ class Contact
   # store the newly created contact, and then return it
   def self.create(first_name, last_name, email, note)
     new_contact = self.new(first_name, last_name, email, note)
-    new_contact.id = @@next_id #cannot use a @id counter bc it zeroes at every initialization
+    new_contact.id = @@next_id # cannot use a @id counter bc it zeroes at every initialization
     @@next_id += 1
     @@contact_list << new_contact
     return new_contact
@@ -74,11 +74,11 @@ class Contact
   # This method should accept an id as an argument
   # and return the contact who has that id. Question: can a searchb or find be used? didn't succeed.
   def self.find(id_to_find)
-      @@contact_list.each do |item|
-          if item.id == id_to_find
-            return item
-          end
+    @@contact_list.each do |item|
+      if item.id == id_to_find
+        return item
       end
+    end
   end
 
   # This method should allow you to specify
@@ -96,9 +96,8 @@ class Contact
 
   def self.find_by(attribute, attribute_value)
     # send is an analogue of indirect function in excel
-    puts  @@contact_list.select { |contact| contact.send(attribute) == attribute_value }.inspect
+    puts @@contact_list.select { |contact| contact.send(attribute) == attribute_value }.inspect
   end
-
 
   # This method should delete all of the contacts
   def self.delete_all
