@@ -53,7 +53,12 @@ class CRM
     print 'Enter a Note: '
     note = gets.chomp
 
-    Contact.create(first_name, last_name, email, note)
+    contact = Contact.create(
+      first_name: first_name,
+      last_name:  last_name,
+      email:      email,
+      note:       note
+    )
     puts
     puts "Contact added to the Contact list"
     display_all_contacts
@@ -91,6 +96,7 @@ class CRM
     else
       puts
       puts "There are no contacts in the Contact list."
+      puts "________________________________________________________"
     end
   end
 
@@ -111,6 +117,7 @@ class CRM
     else
       puts
       puts "There are no contacts in the Contact list."
+      puts "________________________________________________________"
     end
     # working code adapted from find method in contact.rb
     # Contact.all.each do |item|
@@ -129,10 +136,11 @@ class CRM
       puts "Below are all the contacts currently in the Contact list:"
       puts
       puts Contact.all.inspect
-      puts
+      puts "________________________________________________________"
     else
       puts
       puts "There are no contacts in the Contact list."
+      puts "________________________________________________________"
     end
   end
 
@@ -151,20 +159,28 @@ class CRM
       when 4 then field = "note"
       else abort("Wrong answer, exiting the program...")
       end
+      puts
       puts "Good! Now what do you want me to search for in *#{field}s*?"
       value = gets.chomp
       puts
-      puts "Contact found:"
-      Contact.find_by(field, value)
-      puts
+      if Contact.find_by(field => value) == nil
+        puts "Contact not found."
+      else
+        puts "Contact found:"
+        puts Contact.find_by(field => value).inspect
+      end
+      puts "________________________________________________________"
     else
       puts
       puts "There are no contacts in the Contact list."
+      puts "________________________________________________________"
     end
   end
 
   def exit_me
-    abort("I'm out of it!")
+    puts
+    abort("I'm out of it! See you soon.")
+    puts "________________________________________________________"
   end
 
 end
