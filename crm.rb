@@ -171,3 +171,7 @@ end
 
 crm = CRM.create
 crm.main_menu
+
+at_exit do
+  ActiveRecord::Base.connection.close
+end
